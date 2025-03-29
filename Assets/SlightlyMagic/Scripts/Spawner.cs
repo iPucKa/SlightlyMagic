@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
 	[SerializeField] private List<SpawnPoint> _spawnPoints;
 	[SerializeField] private float _cooldown;
 
-	[SerializeField] private List<MagicItem> _itemPrefabs;
+	[SerializeField] private List<Powerup> _powerupPrefabs;
 
 	private float _time;
 
@@ -27,7 +27,7 @@ public class ItemSpawner : MonoBehaviour
 
 			SpawnPoint spawnPoint = emptyPoints[Random.Range(0, emptyPoints.Count)];
 
-			MagicItem item = Instantiate(_itemPrefabs[Random.Range(0, _itemPrefabs.Count)], spawnPoint.Position, Quaternion.identity);
+			Powerup item = Instantiate(_powerupPrefabs[Random.Range(0, _powerupPrefabs.Count)], spawnPoint.Position, Quaternion.identity);
 
 			spawnPoint.Occupy(item);
 

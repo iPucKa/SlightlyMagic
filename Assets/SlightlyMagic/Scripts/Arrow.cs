@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private float _arrowDestroyTime;
+	[SerializeField] private float _force;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private Rigidbody _arrow;
+
+	private float _time;
+
+	private void Awake()
+	{
+		_arrow = GetComponent<Rigidbody>();
+		_arrow.angularVelocity = Vector3.zero;
+	}
+
+	private void Update()
+	{
+		_time += Time.deltaTime;
+
+		_arrow.AddForce(transform.forward * _force * Time.deltaTime, ForceMode.Impulse);
+
+		if (_time >= _arrowDestroyTime)
+			Destroy(gameObject);
+	}
 }

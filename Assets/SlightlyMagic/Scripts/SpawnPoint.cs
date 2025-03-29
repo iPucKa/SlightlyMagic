@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-	private MagicItem _item;
+	private Powerup _item;
 
 	public bool IsEmpty
 	{
@@ -19,8 +19,21 @@ public class SpawnPoint : MonoBehaviour
 	}
 	public Vector3 Position => transform.position;
 
-	public void Occupy(MagicItem item)
+	public void Occupy(Powerup item) => _item = item;
+
+	private void Update()
 	{
-		_item = item;
+		if (_item == null)
+			return;
+
+		if (_item.gameObject == null)
+			return;
+
+		if (_item.transform.position == Position)
+			return;
+
+		if (_item != null && _item.gameObject != null)
+			if (_item.transform.parent != null)
+				_item = null;
 	}
 }

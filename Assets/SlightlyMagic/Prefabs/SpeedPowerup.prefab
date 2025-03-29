@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 3423739991192346616}
   - component: {fileID: 3568329120334931270}
   - component: {fileID: 7531548930694026094}
-  - component: {fileID: 2693217330398818267}
+  - component: {fileID: 7737951863555817308}
   - component: {fileID: -5813090571365454147}
   m_Layer: 0
-  m_Name: SpeedItem
+  m_Name: SpeedPowerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2693217330398818267
-SphereCollider:
+--- !u!65 &7737951863555817308
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,7 +104,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.6185449
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0.0028532445, y: -0.043630898, z: 0}
 --- !u!114 &-5813090571365454147
 MonoBehaviour:
@@ -118,3 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29b6eaa9212a7b4ea2e2c1f906ce0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _destroyTime: 10
+  _rotateSpeed: 1
+  _powerupEffectPrefab: {fileID: 8659136815064088660, guid: a678cac5f73b57847a37769b6f34bd34,
+    type: 3}
+  _moveSpeedMultiplier: 2
+  _rotateSpeedMultiplier: 2
