@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyTime: 10
   _rotateSpeed: 1
-  _powerupEffectPrefab: {fileID: 634081482286452755, guid: ad7dbab257bedf04daea0606e0e60fbe,
+  _powerupEffectPrefab: {fileID: 1884078621903769830, guid: fb50e6a1c9c127a4abddcf0c40b3e179,
     type: 3}
   _arrowPrefab: {fileID: 979521733221175855, guid: 90d8a9700deb8974595600faa0ec6595,
     type: 3}
