@@ -8,16 +8,9 @@ public abstract class Powerup : MonoBehaviour
 
 	private Vector3 _defaultPosition;
 	protected float _time;
+	protected bool _isCollected;
 
-	public bool IsCollected
-	{
-		get
-		{
-			if (transform.parent != null)
-				return true;
-			return false;
-		}
-	}
+	public void SetStatus() => _isCollected = true;
 
 	public bool IsActivated { get; private set; }
 
@@ -31,7 +24,7 @@ public abstract class Powerup : MonoBehaviour
 	{
 		_time += Time.deltaTime;
 
-		if (IsCollected == false)
+		if (_isCollected == false)
 		{
 			if (_time < _destroyTime)
 				DoAnimation();

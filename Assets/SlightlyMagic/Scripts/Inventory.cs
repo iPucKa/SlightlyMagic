@@ -32,7 +32,11 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public void Occupy(Powerup item) => _item = item;
+	public void Occupy(Powerup item)
+	{
+		_item = item;
+		_item.SetStatus();
+	}
 
 	public void SetParent(Transform parent)
 	{
