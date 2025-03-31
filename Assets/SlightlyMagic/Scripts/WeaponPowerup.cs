@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class WeaponPoerup : Powerup
+public class WeaponPowerup : Powerup
 {
 	[SerializeField] private Arrow _arrowPrefab;
 	[SerializeField] private Transform _arrowSpawnPont;
 
-	public override void Use(Player player)
+	public override void Use(GameObject entity)
 	{
-		base.Use(player);
+		base.Use(entity);
 
 		Vector3 position = _arrowSpawnPont.position + Vector3.down * 2;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Character : MonoBehaviour
 {
 	private string _horizontalAxisName = "Horizontal";
 	private string _verticalAxisName = "Vertical";
@@ -10,9 +10,10 @@ public class Player : MonoBehaviour
 
 	private KeyCode _usePowerupKey = KeyCode.Space;
 
-	[SerializeField] private float _moveSpeed = 5;
+	[SerializeField] private float _moveSpeed = 10;
 	[SerializeField] private float _rotateSpeed = 500;
 	[SerializeField] private int _health = 100;
+	[SerializeField] private Timer _timer;
 
 	private int _maxHealth = 500;
 	private float _maxMoveSpeed = 50;
@@ -26,18 +27,19 @@ public class Player : MonoBehaviour
 	private Mover _mover;
 	private Rotator _rotator;
 
-	private Powerup _powerup;
-	private Collector _collector;
+	private Inventory _inventory;
+	private PowerupUser _powerupUser;
 
-	private bool _isAbilityUsed;
-	private float _speedAgilityDuration = 5f;
-	private float _time;
+	private float _speedAbilityDuration = 5f;
+	private float _currentTime;
 
 	private float _deadInputZone = 0.1f;
 
 	private void Awake()
 	{
-		_collector = GetComponent<Collector>();
+		_inventory = GetComponentInChildren<Inventory>();
+		_powerupUser = GetComponent<PowerupUser>();
+
 		_mover = GetComponent<Mover>();
 		_rotator = GetComponent<Rotator>();
 
@@ -48,15 +50,12 @@ public class Player : MonoBehaviour
 	private void Update()
 	{
 		_xInput = Input.GetAxisRaw(_horizontalAxisName);
-		_yInput = Input.GetAxisRaw(_verticalAxisName);
-		_isAbilityUsed = Input.GetKeyDown(_usePowerupKey);
+		_yInput = Input.GetAxisRaw(_verticalAxisName);		
 
-		_powerup = _collector.Item;
+		if (Input.GetKeyDown(_usePowerupKey))
+			_powerupUser.UsePowerup(_inventory.Item);
 
-		if (_isAbilityUsed)
-			UsePowerup(_powerup);
-
-		ResetSpeedAgility();
+		ResetSpeedAbility();
 	}
 
 	private void FixedUpdate()
@@ -71,20 +70,7 @@ public class Player : MonoBehaviour
 		_mover.MoveTo(normalizedInput, _moveSpeed);
 	}
 
-	private void UsePowerup(Powerup powerup)
-	{
-		if (powerup == null)
-			Debug.Log("Усиление не найдено. Попробуйте подобрать предмет");
-		
-		else if (powerup != null && powerup.IsActivated == false)
-		{
-			powerup.Use(this);
-
-			_isAbilityUsed = false;
-		}
-	}
-
-	public void UseSpeedAgility(int moveMultiplier, int rotateMultiplier)
+	public void UseSpeedAbility(int moveMultiplier, int rotateMultiplier)
 	{
 		_moveSpeed *= moveMultiplier;
 		_rotateSpeed *= rotateMultiplier;
@@ -95,10 +81,10 @@ public class Player : MonoBehaviour
 		if (_rotateSpeed >= _maxRotateSpeed)
 			_rotateSpeed = _maxRotateSpeed;
 
-		_time = 0;
+		_timer.ResetTimer();
 	}
 
-	public void UseHealthAgility(int value)
+	public void UseHealthAbility(int value)
 	{
 		_health += value;
 
@@ -106,11 +92,11 @@ public class Player : MonoBehaviour
 			_health = _maxHealth;
 	}
 
-	private void ResetSpeedAgility()
+	private void ResetSpeedAbility()
 	{
-		_time += Time.deltaTime;
+		_currentTime = _timer.CurrentTime;
 
-		if (_time >= _speedAgilityDuration)
+		if (_currentTime >= _speedAbilityDuration)
 		{
 			_moveSpeed = _defaultMoveSpeed;
 			_rotateSpeed = _defaultRotateSpeed;

@@ -19,13 +19,12 @@ public abstract class Powerup : MonoBehaviour
 		}
 	}
 
-	protected bool _isActivated;
-	public bool IsActivated => _isActivated;
+	public bool IsActivated { get; private set; }
 
 	private void Awake()
 	{
 		_defaultPosition = transform.position;
-		_isActivated = false;
+		IsActivated = false;
 	}
 
 	private void Update()
@@ -35,9 +34,7 @@ public abstract class Powerup : MonoBehaviour
 		if (IsCollected == false)
 		{
 			if (_time < _destroyTime)
-			{
 				DoAnimation();
-			}
 			else
 				Destroy(gameObject);
 		}
@@ -49,11 +46,28 @@ public abstract class Powerup : MonoBehaviour
 		transform.position = _defaultPosition + Vector3.up * Mathf.Sin(_time) / 5;
 	}
 
-	public virtual void Use(Player player)
+	public virtual void Use(GameObject entity)
 	{
-		_isActivated = true;
+		if (CanUseAbility(entity))
+		{
+			IsActivated = true;
+			EffectPlay();
+		}
+		else
+		{
+			Debug.Log("Объект не может использовать способности");
+			return;
+		}
+	}
 
-		EffectPlay();
+	private bool CanUseAbility(GameObject entity)
+	{
+		PowerupUser user = entity.GetComponent<PowerupUser>();
+
+		if (user != null)
+			return true;
+		else
+			return false;
 	}
 
 	protected void EffectPlay()

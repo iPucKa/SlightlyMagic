@@ -4,11 +4,11 @@ public class HealthPowerup : Powerup
 {
 	[SerializeField] private int _additiveHealth;
 
-	public override void Use(Player player)
+	public override void Use(GameObject entity)
 	{
-		base.Use(player);
+		base.Use(entity);
 
-		player.UseHealthAgility(_additiveHealth);
+		entity.GetComponent<Character>().UseHealthAbility(_additiveHealth);
 
 		Destroy(gameObject);
 	}
