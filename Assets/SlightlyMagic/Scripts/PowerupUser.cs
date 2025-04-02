@@ -7,7 +7,7 @@ public class PowerupUser : MonoBehaviour
 		if (powerup == null)
 			Debug.Log("Усиление не найдено. Попробуйте подобрать предмет");
 
-		else if (powerup != null && powerup.IsActivated == false)
+		else
 			powerup.Use(gameObject);
 	}
 }

@@ -9,7 +9,7 @@ public class SpeedPowerup : Powerup
 	{
 		base.Use(entity);
 
-		entity.GetComponent<Character>().UseSpeedAbility(_moveSpeedMultiplier, _rotateSpeedMultiplier);
+		entity.GetComponent<Character>().IncreaseSpeed(_moveSpeedMultiplier, _rotateSpeedMultiplier);
 
 		Destroy(gameObject);
 	}

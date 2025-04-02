@@ -8,7 +8,7 @@ public class HealthPowerup : Powerup
 	{
 		base.Use(entity);
 
-		entity.GetComponent<Character>().UseHealthAbility(_additiveHealth);
+		entity.GetComponent<Character>().AddHealth(_additiveHealth);
 
 		Destroy(gameObject);
 	}

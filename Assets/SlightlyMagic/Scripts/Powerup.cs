@@ -10,15 +10,12 @@ public abstract class Powerup : MonoBehaviour
 	protected float _time;
 	protected bool _isCollected;
 
-	public void SetStatus() => _isCollected = true;
-
-	public bool IsActivated { get; private set; }
-
 	private void Awake()
 	{
 		_defaultPosition = transform.position;
-		IsActivated = false;
 	}
+
+	public void Collect() => _isCollected = true;
 
 	private void Update()
 	{
@@ -42,10 +39,7 @@ public abstract class Powerup : MonoBehaviour
 	public virtual void Use(GameObject entity)
 	{
 		if (CanUseAbility(entity))
-		{
-			IsActivated = true;
 			EffectPlay();
-		}
 		else
 		{
 			Debug.Log("Объект не может использовать способности");

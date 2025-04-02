@@ -12,11 +12,8 @@ public class PowerupCollector : MonoBehaviour
 
 		if (item != null)
 		{
-			if (CanJoinItem)
-			{
-				_inventory.Occupy(item);
-				_inventory.SetParent(transform);
-			}
+			if (CanJoinItem)			
+				_inventory.Occupy(item, transform);			
 		}
 	}
 }

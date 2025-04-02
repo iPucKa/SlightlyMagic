@@ -55,7 +55,7 @@ public class Character : MonoBehaviour
 		if (Input.GetKeyDown(_usePowerupKey))
 			_powerupUser.UsePowerup(_inventory.Item);
 
-		ResetSpeedAbility();
+		ResetSpeed();
 	}
 
 	private void FixedUpdate()
@@ -70,7 +70,7 @@ public class Character : MonoBehaviour
 		_mover.MoveTo(normalizedInput, _moveSpeed);
 	}
 
-	public void UseSpeedAbility(int moveMultiplier, int rotateMultiplier)
+	public void IncreaseSpeed(int moveMultiplier, int rotateMultiplier)
 	{
 		_moveSpeed *= moveMultiplier;
 		_rotateSpeed *= rotateMultiplier;
@@ -84,7 +84,7 @@ public class Character : MonoBehaviour
 		_timer.ResetTimer();
 	}
 
-	public void UseHealthAbility(int value)
+	public void AddHealth(int value)
 	{
 		_health += value;
 
@@ -92,7 +92,7 @@ public class Character : MonoBehaviour
 			_health = _maxHealth;
 	}
 
-	private void ResetSpeedAbility()
+	private void ResetSpeed()
 	{
 		_currentTime = _timer.CurrentTime;
 
