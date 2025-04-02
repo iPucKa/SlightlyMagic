@@ -15,8 +15,6 @@ public abstract class Powerup : MonoBehaviour
 		_defaultPosition = transform.position;
 	}
 
-	public void Collect() => _isCollected = true;
-
 	private void Update()
 	{
 		_time += Time.deltaTime;
@@ -29,6 +27,8 @@ public abstract class Powerup : MonoBehaviour
 				Destroy(gameObject);
 		}
 	}
+
+	public void Collect() => _isCollected = true;
 
 	private void DoAnimation()
 	{
